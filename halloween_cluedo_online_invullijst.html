@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halloween Cluedo – De Vloek van de Vogelbuurt</title>
+<style>
+body{margin:0;background:#111;color:#f4ead7;font-family:Arial,sans-serif}
+.wrap{max-width:700px;margin:auto;padding:20px}
+.card{background:#1c1a20;border:2px solid #6d4a86;border-radius:18px;padding:22px;box-shadow:0 0 25px #000}
+h1{text-align:center;color:#d8a8ff;margin-top:0}
+h2{color:#e8c7ff;font-size:20px}
+p{line-height:1.5}
+label{display:block;margin:14px 0 6px;font-weight:bold}
+textarea,input,select{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #806395;background:#292631;color:white;font-size:16px}
+textarea{min-height:75px}
+button{width:100%;margin-top:22px;padding:14px;border:0;border-radius:12px;background:#7b4b9e;color:white;font-size:17px;font-weight:bold}
+.small{font-size:13px;color:#c8bdcf}
+.result{display:none;margin-top:20px;padding:16px;border-radius:12px;background:#292631;border:1px solid #806395}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<h1>🎃 De Vloek van de Vogelbuurt 👻</h1>
+<p><b>Levend Cluedo – Halloween</b></p>
+<p>Vul tijdens het spel de aanwijzingen in. Er is geen vaste route. Spreek de personages zelf aan en noteer goed wat ze vertellen.</p>
+
+<h2>🔎 Aanwijzingen</h2>
+
+<label>🤡 De Enge Clown</label>
+<textarea id="clown" placeholder="Wat vertelt de clown?"></textarea>
+
+<label>🦖 De Hondsdolle Dino</label>
+<textarea id="dino" placeholder="Wat vertelt de dino?"></textarea>
+
+<label>🧙‍♀️ De Zwarte Heksen</label>
+<textarea id="heksen" placeholder="Wat vertellen de heksen?"></textarea>
+
+<label>🔮 De Voodoo-priesteres</label>
+<textarea id="voodoo" placeholder="Wat vertelt de voodoo-priesteres?"></textarea>
+
+<label>😵 Wiebelfriek</label>
+<textarea id="wiebelfriek" placeholder="Wat vertelt Wiebelfriek?"></textarea>
+
+<label>🐴 De Bezeten Ezel en Pony</label>
+<textarea id="ezel" placeholder="Wat vertellen de ezel en pony?"></textarea>
+
+<label>🏴‍☠️ De Piraat</label>
+<textarea id="piraat" placeholder="Wat vertelt de piraat?"></textarea>
+
+<h2>🕵️ Jullie conclusie</h2>
+<label>Wie denken jullie dat de dader is?</label>
+<select id="dader">
+<option value="">Kies een verdachte...</option>
+<option>De Enge Clown</option>
+<option>De Hondsdolle Dino</option>
+<option>De Zwarte Heksen</option>
+<option>De Voodoo-priesteres</option>
+<option>Wiebelfriek</option>
+<option>De Bezeten Ezel en Pony</option>
+<option>De Piraat</option>
+</select>
+
+<label>Waarom denken jullie dat?</label>
+<textarea id="waarom" placeholder="Schrijf jullie reden op..."></textarea>
+
+<button onclick="bewaar()">💜 Antwoorden bewaren op dit apparaat</button>
+<div class="result" id="result">De antwoorden zijn opgeslagen op dit apparaat. 🎃</div>
+
+<p class="small">Tip: maak tijdens het spel een screenshot van jullie ingevulde lijst als bewijs van jullie speurwerk.</p>
+</div>
+</div>
+<script>
+function bewaar(){
+const ids=['clown','dino','heksen','voodoo','wiebelfriek','ezel','piraat','dader','waarom'];
+const data={};
+ids.forEach(id=>data[id]=document.getElementById(id).value);
+localStorage.setItem('vogelbuurt-cluedo',JSON.stringify(data));
+document.getElementById('result').style.display='block';
+}
+window.onload=()=>{
+try{
+const d=JSON.parse(localStorage.getItem('vogelbuurt-cluedo')||'{}');
+Object.keys(d).forEach(id=>{if(document.getElementById(id))document.getElementById(id).value=d[id]});
+}catch(e){}
+}
+</script>
+</body>
+</html>
